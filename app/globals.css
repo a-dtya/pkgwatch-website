@@ -1,2 +1,155 @@
-* { box-sizing: border-box; }
-body { margin: 0; background: #080d18; }
+@import 'tailwindcss';
+
+/* ─────────────────────────────────────────────
+   THEME TOKENS  (Tailwind v4 CSS-based config)
+   These become utility classes automatically:
+   bg-bg, bg-bg-card, text-accent, border-border, etc.
+───────────────────────────────────────────── */
+@theme {
+  /* Background */
+  --color-bg:           #080d18;
+  --color-bg-card:      #0c1525;
+  --color-bg-card-alt:  #09101e;
+
+  /* Border */
+  --color-border:       #111d30;
+
+  /* Accent (amber/gold) */
+  --color-accent:       #f5a623;
+
+  /* Text */
+  --color-text:         #e8eaf0;
+  --color-text-muted:   #6b7a99;
+  --color-text-dim:     #3d5275;
+
+  /* Semantic */
+  --color-success:      #2ed573;
+  --color-danger:       #ff4757;
+  --color-warn:         #ffa502;
+
+  /* Fonts — CSS variables set by next/font/google in layout.tsx */
+  --font-display: var(--font-syne), sans-serif;
+  --font-body:    var(--font-outfit), sans-serif;
+  --font-mono:    var(--font-dm-mono), monospace;
+}
+
+/* ─────────────────────────────────────────────
+   BASE
+───────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─────────────────────────────────────────────
+   SCROLLBAR
+───────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 2px; }
+
+/* ─────────────────────────────────────────────
+   KEYFRAMES  (cannot be expressed as Tailwind utilities)
+───────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(245, 166, 35, 0.2); }
+  50%       { box-shadow: 0 0 40px rgba(245, 166, 35, 0.5); }
+}
+
+/* ─────────────────────────────────────────────
+   ANIMATION HELPER CLASSES
+   (referenced in component className props)
+───────────────────────────────────────────── */
+.animate-term-line  { animation: fadeUp 0.28s ease both; }
+.animate-cursor     { animation: blink 1s infinite; display: inline-block; }
+.animate-float      { animation: float 6s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulseGlow 2s ease-in-out infinite; }
+
+/* ─────────────────────────────────────────────
+   MARQUEE  (complex CSS — can't be pure Tailwind)
+───────────────────────────────────────────── */
+.marquee-wrap { overflow: hidden; position: relative; }
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+  gap: 16px;
+}
+.marquee-fade-left {
+  position: absolute; top: 0; left: 0; bottom: 0; width: 160px;
+  background: linear-gradient(to right, var(--color-bg), transparent);
+  z-index: 2; pointer-events: none;
+}
+.marquee-fade-right {
+  position: absolute; top: 0; right: 0; bottom: 0; width: 160px;
+  background: linear-gradient(to left, var(--color-bg), transparent);
+  z-index: 2; pointer-events: none;
+}
+
+/* ─────────────────────────────────────────────
+   SCROLL REVEAL  (JS-driven class toggle)
+───────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─────────────────────────────────────────────
+   WEBKIT / PSEUDO-ELEMENT TRICKS
+   (impossible to express as Tailwind utilities)
+───────────────────────────────────────────── */
+
+/* Gradient text — requires -webkit-text-fill-color */
+.glow-text {
+  background: linear-gradient(130deg, #f5a623 0%, #ffd06b 50%, #f5a623 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Pricing Pro top-edge accent line via ::before */
+.pricing-pro::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(to right, transparent 10%, var(--color-accent), transparent 90%);
+}
+
+/* Nav scroll state — applied via JS className toggle in Navbar.tsx */
+.nav-scrolled {
+  background: rgba(8, 13, 24, 0.92) !important;
+  backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid var(--color-border) !important;
+}
