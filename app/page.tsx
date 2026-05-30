@@ -912,25 +912,42 @@ export default function PkgWatchLanding() {
               </button>
             </div>
 
-            {/* ── Pro tier ── */}
-            <div className="pricing-pro" style={{ flex: 1, minWidth: 300, padding: 36 }}>
+            {/* ── Enterprise Teams Edition (Waitlist) ── */}
+            <div className="pricing-enterprise" style={{ flex: 1, minWidth: 300, padding: 36, position: "relative" }}>
               <div style={{ position: "absolute", top: 18, right: 18 }}>
                 <span className="tag" style={{ fontSize: 10 }}>COMING SOON</span>
               </div>
 
-              <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: "#6b7a99", textTransform: "uppercase", letterSpacing: "1.5px" }}>Pro / Enterprise</span>
+              {/* Removed "Pro" - strictly positioned as an Enterprise product */}
+              <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: "#f5a623", textTransform: "uppercase", letterSpacing: "1.5px" }}>
+                Enterprise Teams
+              </span>
+              
               <div style={{ display: "flex", alignItems: "baseline", gap: 10, margin: "12px 0 0" }}>
-                <span style={{ fontFamily: "'Outfit', sans-serif", fontSize: 52, fontWeight: 800, lineHeight: 1, color: "#f5a623" }}>Join</span>
-                <span style={{ fontFamily: "'Outfit', sans-serif", fontSize: 22, fontWeight: 700, color: "#f5a623" }}>Waitlist</span>
+                <span style={{ fontFamily: "'Outfit', sans-serif", fontSize: 52, fontWeight: 800, lineHeight: 1, color: "#ffffff" }}>
+                  Custom
+                </span>
               </div>
 
               <p style={{ color: "#6b7a99", fontSize: 14, lineHeight: 1.65, margin: "20px 0 24px", paddingBottom: 24, borderBottom: "1px solid rgba(245,166,35,0.12)" }}>
-                Enterprise-grade protection for your team, CI pipelines, and every platform.
+                For engineering orgs requiring fleet visibility, CI/CD pipeline enforcement, and compliance reporting.
               </p>
 
-              {PRO_FEATURES.map((f, i) => (
-                <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 13, fontSize: 14, color: i === 0 ? "#f5a623" : "#c8d4e8", fontWeight: i === 0 ? 600 : 400 }}>
-                  {i === 0 ? <ChevronRight size={14} color="#f5a623" /> : <Check size={14} color="#f5a623" />}
+              <div style={{ fontSize: 12, color: "#8b9dc3", fontWeight: 600, marginBottom: 16 }}>
+                Everything in Free, plus:
+              </div>
+
+              {/* Replaced PRO_FEATURES with the specific, un-replicable enterprise features */}
+              {[
+                "Centralized CISO Fleet Dashboard",
+                "CI/CD PR blocking (GitHub/GitLab)",
+                "Automated remediation auto-PRs",
+                "Private registry scanning (Artifactory)",
+                "SOC2 & ISO27001 compliance exports",
+                "SSO & SAML access control"
+              ].map((f, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 13, fontSize: 14, color: "#e8eaf0", fontWeight: 400 }}>
+                  <Check size={14} color="#f5a623" />
                   {f}
                 </div>
               ))}
@@ -942,6 +959,112 @@ export default function PkgWatchLanding() {
           </div>
         </div>
       </section>
+
+      {/* ── Roadmap / Coming Soon Section ── */}
+      <div style={{ 
+        padding: "80px 20px", 
+        width: "100%", 
+        display: "flex", 
+        justifyContent: "center", 
+        background: "#080d18",
+        borderTop: "1px solid #111d30"
+      }}>
+        <div style={{ maxWidth: 1000, width: "100%" }}>
+          
+          <div style={{ textAlign: "center", marginBottom: 48 }}>
+            <span style={{ 
+              fontSize: 10, 
+              fontFamily: "'DM Mono', monospace", 
+              background: "rgba(245,166,35,0.1)", 
+              color: "#f5a623", 
+              border: "1px solid rgba(245,166,35,0.25)", 
+              padding: "4px 10px", 
+              borderRadius: 100, 
+              fontWeight: 700, 
+              letterSpacing: "1px" 
+            }}>
+              DEVELOPER ROADMAP
+            </span>
+            <h3 style={{ fontFamily: "'Outfit', sans-serif", fontSize: 32, fontWeight: 800, color: "#ffffff", marginTop: 16, marginBottom: 12 }}>
+              Currently In Development
+            </h3>
+            <p style={{ color: "#8b9dc3", fontSize: 15, maxWidth: 500, margin: "0 auto", lineHeight: 1.6 }}>
+              We are actively expanding core platform support. These features will be available in the free Developer Edition very soon.
+            </p>
+          </div>
+
+          {/* Responsive Pure CSS Grid for Roadmap Cards */}
+          <style>{`
+            .roadmap-grid {
+              display: grid;
+              gap: 24px;
+              grid-template-columns: repeat(3, 1fr);
+            }
+            .roadmap-card {
+              background: rgba(10, 18, 32, 0.5);
+              border: 1px dashed #1c2a40;
+              border-radius: 12px;
+              padding: 24px;
+              transition: border-color 0.2s ease, background 0.2s ease;
+            }
+            .roadmap-card:hover {
+              border-color: rgba(245, 166, 35, 0.4);
+              background: rgba(10, 18, 32, 0.8);
+            }
+            @media (max-width: 768px) {
+              .roadmap-grid {
+                grid-template-columns: repeat(1, 1fr);
+              }
+            }
+          `}</style>
+
+          <div className="roadmap-grid">
+            
+            {/* ── macOS Support ── */}
+            <div className="roadmap-card">
+              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
+                <div style={{ background: "#111d30", padding: "8px", borderRadius: "8px", color: "#c8d4e8" }}>
+                  {/* Replace with your preferred Monitor/Apple icon */}
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                </div>
+                <span style={{ fontFamily: "'Outfit', sans-serif", fontSize: 18, fontWeight: 700, color: "#e8eaf0" }}>macOS Native</span>
+              </div>
+              <p style={{ color: "#6b7a99", fontSize: 13, lineHeight: 1.6 }}>
+                Full support for Intel and Apple Silicon (M1/M2/M3) chips. Packaged as a signed, native <code style={{fontFamily:"monospace", color:"#8b9dc3"}}>.dmg</code> application.
+              </p>
+            </div>
+
+            {/* ── Linux Support ── */}
+            <div className="roadmap-card">
+              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
+                <div style={{ background: "#111d30", padding: "8px", borderRadius: "8px", color: "#c8d4e8" }}>
+                  {/* Replace with your preferred Terminal/Linux icon */}
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+                </div>
+                <span style={{ fontFamily: "'Outfit', sans-serif", fontSize: 18, fontWeight: 700, color: "#e8eaf0" }}>Linux Desktop</span>
+              </div>
+              <p style={{ color: "#6b7a99", fontSize: 13, lineHeight: 1.6 }}>
+                Support for major distributions including Ubuntu, Debian, and Fedora. Distributed via <code style={{fontFamily:"monospace", color:"#8b9dc3"}}>.deb</code> and <code style={{fontFamily:"monospace", color:"#8b9dc3"}}>.AppImage</code>.
+              </p>
+            </div>
+
+            {/* ── Background Daemon ── */}
+            <div className="roadmap-card">
+              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
+                <div style={{ background: "#111d30", padding: "8px", borderRadius: "8px", color: "#c8d4e8" }}>
+                  {/* Replace with your preferred System/Settings icon */}
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                </div>
+                <span style={{ fontFamily: "'Outfit', sans-serif", fontSize: 18, fontWeight: 700, color: "#e8eaf0" }}>System Tray Daemon</span>
+              </div>
+              <p style={{ color: "#6b7a99", fontSize: 13, lineHeight: 1.6 }}>
+                Run pkgwatch silently in the background. It will actively monitor your <code style={{fontFamily:"monospace", color:"#8b9dc3"}}>node_modules</code> and <code style={{fontFamily:"monospace", color:"#8b9dc3"}}>site-packages</code> and alert you if a malicious dependency is pulled down.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
 
       <div className="divider" />
 
