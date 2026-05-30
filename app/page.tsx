@@ -466,6 +466,16 @@ export default function PkgWatchLanding() {
           height: 64, padding: "0 48px",
           display: "flex", alignItems: "center", justifyContent: "space-between",
           transition: "background 0.35s, border 0.35s, backdrop-filter 0.35s",
+          
+          /* ── ADDED: Base Glassmorphism Styles ── */
+          background: "rgba(8, 13, 24, 0.65)",     /* Semi-transparent dark base */
+          backdropFilter: "blur(12px)",            /* Blurs the hero section behind it */
+          WebkitBackdropFilter: "blur(12px)",      /* Safari support for blur */
+          // borderBottom: "1px solid rgba(255, 255, 255, 0.05)", /* Faint separator line */
+
+          /* ── ADDED: The Glowing Border ── */
+          borderBottom: "1px solid rgba(245, 166, 35, 0.2)",           /* A subtle orange-tinted edge */
+          boxShadow: "0 15px 40px -10px rgba(245, 166, 35, 0.15)",    /* Casts the glow strictly downward */
         }}
       >
         {/* Logo */}
