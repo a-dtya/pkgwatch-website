@@ -372,6 +372,8 @@ const PRO_FEATURES = [
   "Priority support & SLA",
 ];
 
+const DOWNLOAD_URL = "https://github.com/user-attachments/files/28362681/pkgwatch_0.1.0_x64-setup.zip"
+
 /* ─────────────────────────────────────────────
    LOGO SVG — approximates the golden 3D box
 ───────────────────────────────────────────── */
@@ -475,7 +477,8 @@ export default function PkgWatchLanding() {
         </a>
 
         {/* Links */}
-        <div style={{ display: "flex", gap: 32, alignItems: "center" }}>
+        {/* Hide the links on smaller screens */}
+        <div className="hide-on-mobile" style={{ display: "flex", gap: 32, alignItems: "center"}}>
           {["Features", "Ecosystems", "Pricing"].map((l) => (
             <a key={l} href={`#${l.toLowerCase()}`}
               style={{ color: "#6b7a99", fontSize: 14, fontWeight: 500, textDecoration: "none", transition: "color 0.2s" }}
@@ -483,7 +486,7 @@ export default function PkgWatchLanding() {
               onMouseLeave={(e) => (e.currentTarget.style.color = "#6b7a99")}
             >{l}</a>
           ))}
-          <a href="#" style={{ color: "#6b7a99", fontSize: 14, fontWeight: 500, textDecoration: "none", display: "flex", alignItems: "center", gap: 6, transition: "color 0.2s" }}
+          <a href="https://github.com/a-dtya/pkgwatch/" target="_blank" rel="noopener noreferrer" style={{ color: "#6b7a99", fontSize: 14, fontWeight: 500, textDecoration: "none", display: "flex", alignItems: "center", gap: 6, transition: "color 0.2s" }}
             onMouseEnter={(e) => (e.currentTarget.style.color = "#e8eaf0")}
             onMouseLeave={(e) => (e.currentTarget.style.color = "#6b7a99")}
           >
@@ -491,7 +494,7 @@ export default function PkgWatchLanding() {
           </a>
         </div>
 
-        <button className="btn-primary" style={{ padding: "10px 20px", fontSize: 13 }}>
+        <button className="btn-primary hide-on-mobile" onClick={()=> {window.open(DOWNLOAD_URL, "_blank")}} style={{ padding: "10px 20px", fontSize: 13 }}>
           <Download size={14} /> Download .exe
         </button>
       </nav>
@@ -511,7 +514,7 @@ export default function PkgWatchLanding() {
         <div className="hero-layout" style={{ display: "flex", gap: 72, alignItems: "center", maxWidth: 1280, width: "100%", margin: "0 auto", position: "relative", zIndex: 1 }}>
 
           {/* ── Left: copy ── */}
-          <div style={{ flex: 1, maxWidth: 460 }}>
+          <div style={{ flex: 1}}>
             <div style={{ display: "flex", gap: 8, marginBottom: 28, flexWrap: "wrap" }}>
               <span className="tag">v0.1.0-beta</span>
               <span className="tag">Windows</span>
@@ -529,12 +532,12 @@ export default function PkgWatchLanding() {
             </p>
 
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 32 }}>
-              <button className="btn-primary">
+              <button className="btn-primary" onClick={()=> {window.open(DOWNLOAD_URL, "_blank")}} style={{ padding: "10px 20px", fontSize: 13 }}>
                 <Download size={17} />
                 Download for Windows
                 <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 12, opacity: 0.65 }}>.exe</span>
               </button>
-              <button className="btn-ghost">
+              <button className="btn-ghost" onClick={()=>{window.open("https://github.com/a-dtya/pkgwatch/", "_blank")}}>
                 <GitBranch size={15} /> View on GitHub
               </button>
             </div>
@@ -552,8 +555,81 @@ export default function PkgWatchLanding() {
             </div>
           </div>
 
-          {/* ── Right: real dashboard mockup ── */}
-          <div style={{ flex: 1, maxWidth: 640, animation: "float 6s ease-in-out infinite" }}>
+          <div style={{ flex: 1, display: 'flex', justifyContent: 'center', padding: '0 16px' }}>
+  
+            {/* Pure CSS Media Query to handle the swap */}
+            <style>{`
+              .mobile-terminal { display: block; }
+              .desktop-dashboard { display: none; }
+
+              @media (max-width: 767px) {
+                .hide-on-mobile {
+                  display: none !important;
+                }
+              }
+              
+              /* When the screen hits 768px (tablet/desktop), hide terminal, show dashboard */
+              @media (min-width: 768px) {
+                .mobile-terminal { display: none; }
+                .desktop-dashboard { display: block; }
+              }
+            `}</style>
+
+            {/* 📱 MOBILE VIEW: Sleek Terminal (Pure Inline Styles) */}
+            <div className="mobile-terminal" style={{ 
+              width: '100%', maxWidth: '380px', borderRadius: '12px', overflow: 'hidden', 
+              background: '#0a1220', border: '1px solid #162030', 
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)' 
+            }}>
+              
+              {/* Mac-style Terminal Header */}
+              <div style={{ 
+                background: '#0f1a2e', padding: '12px 16px', borderBottom: '1px solid #162030', 
+                display: 'flex', alignItems: 'center', gap: '8px' 
+              }}>
+                <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: 'rgba(239, 68, 68, 0.8)' }}></div>
+                <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: 'rgba(234, 179, 8, 0.8)' }}></div>
+                <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: 'rgba(34, 197, 94, 0.8)' }}></div>
+                <span style={{ 
+                  marginLeft: '8px', fontSize: '10px', color: '#94a3b8', 
+                  fontFamily: 'monospace', textTransform: 'uppercase', letterSpacing: '0.05em' 
+                }}>
+                  bash - pkgwatch
+                </span>
+              </div>
+              
+              {/* Terminal Output */}
+              <div style={{ 
+                padding: '20px', fontFamily: 'monospace', fontSize: '12px', 
+                lineHeight: '1.6', color: '#c8d4e8' 
+              }}>
+                <div style={{ display: 'flex', gap: '8px', marginBottom: '12px' }}>
+                  <span style={{ color: '#f5a623' }}>➜</span>
+                  <span style={{ color: '#60a5fa' }}>~/project</span>
+                  <span>pkgwatch scan --profile baseline</span>
+                </div>
+                
+                <div style={{ color: '#6b7a99' }}>Loading OSV threat feed... [DONE]</div>
+                <div style={{ color: '#6b7a99' }}>Scanning 2,986 local packages...</div>
+                
+                <div style={{ marginTop: '16px', color: '#ff4757', display: 'flex', gap: '8px', fontWeight: 'bold' }}>
+                  <span>[!]</span>
+                  <span>CRITICAL THREAT DETECTED</span>
+                </div>
+                <div style={{ color: 'rgba(255, 71, 87, 0.8)', marginLeft: '28px', marginTop: '4px' }}>Package: STMicroelectronics.stm32</div>
+                <div style={{ color: 'rgba(255, 71, 87, 0.8)', marginLeft: '28px' }}>Confidence: HIGH (OSV Match)</div>
+                
+                <div style={{ marginTop: '16px', color: '#2ed573', fontWeight: 'bold' }}>
+                  ✓ Scan completed in 0.1s
+                </div>
+              </div>
+            </div>
+
+            {/* 💻 DESKTOP VIEW: The Full Dashboard (Hidden on phones, visible on desktop) */}
+            <div className="desktop-dashboard" style={{ 
+              maxWidth: '640px', flexShrink: 0, animation: 'float 6s ease-in-out infinite' 
+            }}>
+
             <div style={{
               background: "#0a1220",
               border: "1px solid #162030",
@@ -671,6 +747,7 @@ export default function PkgWatchLanding() {
                 <span style={{ fontSize: 9.5, color: "#3d5275", fontFamily: "'DM Mono', monospace" }}>page 5 of 249</span>
               </div>
 
+            </div>
             </div>
           </div>
         </div>
@@ -830,7 +907,7 @@ export default function PkgWatchLanding() {
                 </div>
               ))}
 
-              <button className="btn-primary" style={{ width: "100%", justifyContent: "center", marginTop: 32 }}>
+              <button className="btn-primary" onClick={() => { window.open(DOWNLOAD_URL, "_blank") }} style={{ width: "100%", justifyContent: "center", marginTop: 32 }}>
                 <Download size={16} /> Download Now — Free
               </button>
             </div>
@@ -858,7 +935,7 @@ export default function PkgWatchLanding() {
                 </div>
               ))}
 
-              <button className="btn-outline-accent">
+              <button className="btn-outline-accent" onClick={() => window.open("https://tally.so/r/b5vjZg", "_blank")} style={{ width: "100%", justifyContent: "center", marginTop: 32 }}>
                 <Mail size={16} /> Join the Waitlist
               </button>
             </div>
@@ -869,9 +946,69 @@ export default function PkgWatchLanding() {
       <div className="divider" />
 
       {/* ═══════════════════════ FOOTER ═══════════════════════ */}
-      <footer style={{ padding: "64px 80px 40px", maxWidth: 1280, margin: "0 auto" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 48, marginBottom: 52 }}>
+      <footer className="pkg-footer-wrap">
+        {/* Pure CSS for Responsive Footer Layout */}
+        <style>{`
+          .pkg-footer-wrap {
+            padding: 64px 80px 40px;
+            max-width: 1280px;
+            margin: 0 auto;
+          }
+          .pkg-footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 48px;
+            margin-bottom: 52px;
+          }
+          .pkg-footer-cols {
+            display: flex;
+            gap: 56px;
+            flex-wrap: wrap;
+          }
+          .pkg-footer-bottom {
+            border-top: 1px solid #111d30;
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+          }
 
+          /* Tablet & Mobile Layout */
+          @media (max-width: 768px) {
+            .pkg-footer-wrap {
+              padding: 48px 24px 24px;
+            }
+            .pkg-footer-top {
+              flex-direction: column;
+              gap: 40px;
+              margin-bottom: 40px;
+            }
+            .pkg-footer-cols {
+              display: grid;
+              grid-template-columns: repeat(2, 1fr); /* 2x2 grid for links on mobile */
+              gap: 32px 24px;
+              width: 100%;
+            }
+            .pkg-footer-bottom {
+              flex-direction: column;
+              align-items: flex-start;
+              gap: 20px;
+            }
+          }
+
+          /* Ultra-small Mobile Layout */
+          @media (max-width: 480px) {
+            .pkg-footer-cols {
+              grid-template-columns: 1fr; /* Stack links into a single column */
+            }
+          }
+        `}</style>
+
+        <div className="pkg-footer-top">
           {/* Brand */}
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
@@ -886,7 +1023,7 @@ export default function PkgWatchLanding() {
           </div>
 
           {/* Columns */}
-          <div style={{ display: "flex", gap: 56, flexWrap: "wrap" }}>
+          <div className="pkg-footer-cols">
             {[
               { label: "Product",   links: ["Download", "Changelog", "Roadmap"] },
               { label: "Resources", links: ["Documentation", "GitHub", "OSV Database"] },
@@ -905,16 +1042,16 @@ export default function PkgWatchLanding() {
           </div>
         </div>
 
-        <div style={{ borderTop: "1px solid #111d30", paddingTop: 24, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 14 }}>
+        <div className="pkg-footer-bottom">
           <span style={{ color: "#3d5275", fontSize: 12, fontFamily: "'DM Mono', monospace" }}>
             © 2026 pkgwatch. Built with Rust, Go, and a healthy dose of paranoia.
           </span>
-          <div style={{ display: "flex", gap: 20 }}>
-            <a href="#" style={{ color: "#3d5275", display: "flex", alignItems: "center", gap: 6, fontSize: 13, textDecoration: "none" }}
+          <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+            <a href="https://github.com/a-dtya/pkgwatch/" target="_blank" rel="noopener noreferrer" style={{ color: "#3d5275", display: "flex", alignItems: "center", gap: 6, fontSize: 13, textDecoration: "none" }}
               onMouseEnter={(e) => (e.currentTarget.style.color = "#6b7a99")}
               onMouseLeave={(e) => (e.currentTarget.style.color = "#3d5275")}
             ><GitBranch size={14} /> GitHub</a>
-            <a href="mailto:hello@pkgwatch.dev" style={{ color: "#3d5275", display: "flex", alignItems: "center", gap: 6, fontSize: 13, textDecoration: "none" }}
+            <a href="mailto:adithyavinod1943@gmail.com" style={{ color: "#3d5275", display: "flex", alignItems: "center", gap: 6, fontSize: 13, textDecoration: "none" }}
               onMouseEnter={(e) => (e.currentTarget.style.color = "#6b7a99")}
               onMouseLeave={(e) => (e.currentTarget.style.color = "#3d5275")}
             ><Mail size={14} /> adithyavinod1943@gmail.com</a>
